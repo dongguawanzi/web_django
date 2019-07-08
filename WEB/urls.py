@@ -14,18 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.views import static
+from django.conf import settings
 # from django.urls import path
+from django.views.generic.base import RedirectView
 from django.conf.urls import include
 from django.conf.urls import url
 from login import views
 
 
 urlpatterns = [
+    url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
     url(r'^$', views.index),
     url(r'^admin/', admin.site.urls),
     url(r'^index/', views.index),
     url(r'^login/', views.login),
     url(r'^register/', views.register),
     url(r'^logout/', views.logout),
-    url(r'^captcha', include('captcha.urls'))
+    url(r'^captcha', include('captcha.urls')),
+    url(r'^favicon.ico$', RedirectView.as_view(url=r'static/img/favicon.ico')),
 ]
+
+handler404 = views.page_not_found

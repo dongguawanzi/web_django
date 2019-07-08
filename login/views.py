@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+import hashlib
 from . import models
 from .forms import UserForm, RegisterForm
-import hashlib
+from django.shortcuts import render, redirect
+from django.shortcuts import render_to_response
 
 # Create your views here.
 
@@ -94,3 +95,7 @@ def logout(request):
     # del request.session['user_id']
     # del request.session['user_name']
     return redirect("/index/")
+
+
+def page_not_found(request, exception):
+    return render_to_response('login/404.html')
