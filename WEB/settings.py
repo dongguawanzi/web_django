@@ -26,7 +26,10 @@ SECRET_KEY = 'kd&0iu9@tg8oqjhujiw_wqt8$@481c1l^mrre$4po%%6ehm3rl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '*',
+    # 'localhost', '127.0.0.1', '[::1]',
+]
 
 
 # Application definition
@@ -39,8 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login',
-    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +126,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
-  # os.path.join(BASE_DIR, '/static/'),
 ]
 
+APP_NAME = 'application'
+if APP_NAME == 'login':
+    INSTALLED_APPS.append('login')
+    INSTALLED_APPS.append('captcha')
+elif APP_NAME == 'application':
+    INSTALLED_APPS.append('application')

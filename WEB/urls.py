@@ -13,26 +13,46 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+
+
 from django.views import static
 from django.conf import settings
-# from django.urls import path
-from django.views.generic.base import RedirectView
-from django.conf.urls import include
+
+from django.contrib import admin
 from django.conf.urls import url
-from login import views
+from django.views.generic.base import RedirectView
+
+if settings.APP_NAME == "login":
+    from django.conf.urls import include
+    from login import views
+elif settings.APP_NAME == "application":
+    from application import views
 
 
 urlpatterns = [
+
+    # 静态文件
     url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
-    url(r'^$', views.index),
-    url(r'^admin/', admin.site.urls),
-    url(r'^index/', views.index),
-    url(r'^login/', views.login),
-    url(r'^register/', views.register),
-    url(r'^logout/', views.logout),
-    url(r'^captcha', include('captcha.urls')),
     url(r'^favicon.ico$', RedirectView.as_view(url=r'static/img/favicon.ico')),
+
+    # 后台管理
+    url(r'^admin/', admin.site.urls),
 ]
+
+if settings.APP_NAME == "login":
+    urlpatterns += [  # login 模板
+        url(r'^$', views.index),
+        url(r'^index$', views.index),
+        url(r'^login$', views.login),
+        url(r'^register$', views.register),
+        url(r'^logout$', views.logout),
+        url(r'^captcha', include('captcha.urls')),  # 验证模块captcha
+    ]
+elif settings.APP_NAME == "application":
+    urlpatterns += [  # 应用系统
+        url(r'^$', views.index),
+        url(r'^index.html$', views.index),
+    ]
+
 
 handler404 = views.page_not_found

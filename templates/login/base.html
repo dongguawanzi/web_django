@@ -10,7 +10,7 @@
     <title>{% block title %}base{% endblock %}</title>
 
     <!-- Bootstrap -->
-    <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'login/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,7 +20,7 @@
     <![endif]-->
     {% block css %}{% endblock %}
   </head>
-  <body background="/static/img/bg.jpg" style=" background-repeat:no-repeat; background-size:100% 100%; background-attachment:fixed;">
+  <body background="/static/login/img/bg.jpg" style=" background-repeat:no-repeat; background-size:100% 100%; background-attachment:fixed;">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -56,8 +56,8 @@
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script src="{% static 'login/js/jquery-3.4.1.js' %}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'login/bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
   </body>
 </html>
