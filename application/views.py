@@ -1,48 +1,48 @@
 import hashlib
 from . import models
-# from .forms import UserForm, RegisterForm
+from .forms import UserForm, RegisterForm
 from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response
 
 # Create your views here.
 
 
-# def hash_code(s, salt='mysite'):  # 加点盐
-#     h = hashlib.sha256()
-#     s += salt
-#     h.update(s.encode())  # update方法只接收bytes类型
-#     return h.hexdigest()
-#
-#
+def hash_code(s, salt='mysite'):  # 加点盐
+    h = hashlib.sha256()
+    s += salt
+    h.update(s.encode())  # update方法只接收bytes类型
+    return h.hexdigest()
+
+
 def index(request):
     return render(request, 'ace-master/index.html')
-#
-#
-# def login(request):
-#     if request.session.get('is_login', None):
-#         return redirect('/index')
-#
-#     if request.method == "POST":
-#         login_form = UserForm(request.POST)
-#         message = "请检查填写的内容！"
-#         if login_form.is_valid():
-#             username = login_form.cleaned_data['username']
-#             password = login_form.cleaned_data['password']
-#             try:
-#                 user = models.User.objects.get(name=username)
-#                 if user.password == hash_code(password):
-#                     request.session['is_login'] = True
-#                     request.session['user_id'] = user.id
-#                     request.session['user_name'] = user.name
-#                     return redirect('/index/')
-#                 else:
-#                     message = "密码不正确！"
-#             except:
-#                 message = "用户不存在！"
-#         return render(request, 'login/login.html', locals())
-#
-#     login_form = UserForm()
-#     return render(request, 'login/login.html', locals())
+
+
+def login(request):
+    if request.session.get('is_login', None):
+        return redirect('index.html')
+
+    if request.method == "POST":
+        login_form = UserForm(request.POST)
+        message = "请检查填写的内容！"
+        if login_form.is_valid():
+            username = login_form.cleaned_data['username']
+            password = login_form.cleaned_data['password']
+            try:
+                user = models.User.objects.get(name=username)
+                if user.password == hash_code(password):
+                    request.session['is_login'] = True
+                    request.session['user_id'] = user.id
+                    request.session['user_name'] = user.name
+                    return redirect('index.html')
+                else:
+                    message = "密码不正确！"
+            except:
+                message = "用户不存在！"
+        return render(request, 'ace-master/login.html', locals())
+
+    login_form = UserForm()
+    return render(request, 'ace-master/login.html', locals())
 #
 #
 # def register(request):
@@ -82,19 +82,23 @@ def index(request):
 #                 return redirect('/login/')  # 自动跳转到登录页面
 #     register_form = RegisterForm()
 #     return render(request, 'login/register.html', locals())
-#
-#
-# def logout(request):
-#     if not request.session.get('is_login', None):
-#         # 如果本来就未登录，也就没有登出一说
-#         return redirect("/index/")
-#     request.session.flush()
-#     # 或者使用下面的方法
-#     # del request.session['is_login']
-#     # del request.session['user_id']
-#     # del request.session['user_name']
-#     return redirect("/index/")
+
+
+def logout(request):
+    if not request.session.get('is_login', None):
+        # 如果本来就未登录，也就没有登出一说
+        return redirect("index.html")
+    request.session.flush()
+    # 或者使用下面的方法
+    # del request.session['is_login']
+    # del request.session['user_id']
+    # del request.session['user_name']
+    return redirect("/login.html")
 
 
 def page_not_found(request, exception):
     return render_to_response('ace-master/error-404.html')
+
+
+def page_error(request):
+    return render_to_response('ace-master/error-500.html')

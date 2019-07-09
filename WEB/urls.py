@@ -23,8 +23,8 @@ from django.conf.urls import url
 from django.views.generic.base import RedirectView
 
 if settings.APP_NAME == "login":
-    from django.conf.urls import include
     from login import views
+    from django.conf.urls import include
 elif settings.APP_NAME == "application":
     from application import views
 
@@ -52,7 +52,12 @@ elif settings.APP_NAME == "application":
     urlpatterns += [  # 应用系统
         url(r'^$', views.index),
         url(r'^index.html$', views.index),
+        url(r'^login.html$', views.login),
+        url(r'^logout.html$', views.logout),
+        url(r'^#', views.login),
+        # url(r'^profile.html$', views.profile),
     ]
 
 
 handler404 = views.page_not_found
+handler500 = views.page_error

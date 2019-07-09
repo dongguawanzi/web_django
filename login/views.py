@@ -99,3 +99,8 @@ def logout(request):
 
 def page_not_found(request, exception):
     return render_to_response('login/404.html')
+
+
+def page_error(request):
+    pass
+
