@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response
 
 # Create your views here.
-
+view_counter = 0
 
 def hash_code(s, salt='mysite'):  # 加点盐
     h = hashlib.sha256()
@@ -15,8 +15,14 @@ def hash_code(s, salt='mysite'):  # 加点盐
 
 
 def index(request):
-    pass
     return render(request, 'login/index.html')
+
+
+def it_txt_001(request):
+    global view_counter
+    view_counter = view_counter + 1
+    request.session["views"] = view_counter
+    return render(request, 'login/it_txt_001.html')
 
 
 def login(request):

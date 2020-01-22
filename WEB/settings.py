@@ -27,7 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '*',
-    # 'localhost', '127.0.0.1', '[::1]',
+    'localhost', '127.0.0.1', '[::1]',
 ]
 
 
@@ -131,7 +131,7 @@ STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
 ]
 
-APP_NAME = 'application'
+APP_NAME = 'login'
 if APP_NAME == 'login':
     INSTALLED_APPS.append('login')
     INSTALLED_APPS.append('captcha')

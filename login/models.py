@@ -16,6 +16,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     sex = models.CharField(max_length=32, choices=gender, default='男')
     c_time = models.DateTimeField(auto_now_add=True)
+    views = models.PositiveIntegerField('浏览量', default=0)
 
     def __str__(self):
         return self.name
@@ -24,3 +25,7 @@ class User(models.Model):
         ordering = ['c_time']
         verbose_name = '用户'
         verbose_name_plural = '用户'
+
+    def viewshow(self):
+        self.views += 1
+        return self.views

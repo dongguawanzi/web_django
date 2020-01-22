@@ -43,6 +43,7 @@ if settings.APP_NAME == "login":
     urlpatterns += [  # login 模板
         url(r'^$', views.index),
         url(r'^index$', views.index),
+        url(r'^it_01$', views.it_txt_001),
         url(r'^login$', views.login),
         url(r'^register$', views.register),
         url(r'^logout$', views.logout),
@@ -57,7 +58,6 @@ elif settings.APP_NAME == "application":
         url(r'^#', views.login),
         # url(r'^profile.html$', views.profile),
     ]
-
 
 handler404 = views.page_not_found
 handler500 = views.page_error
