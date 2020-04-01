@@ -2,7 +2,6 @@ import hashlib
 from .models import *
 from .forms import UserForm, RegisterForm
 from django.shortcuts import render, redirect
-from django.shortcuts import render_to_response
 
 # Create your views here.
 view_counter = 0
@@ -102,7 +101,8 @@ def logout(request):
 
 
 def page_not_found(request, exception):
-    return render_to_response('login/404.html')
+    # return render_to_response('login/404.html')
+    pass
 
 
 def page_error(request):
